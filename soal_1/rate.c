@@ -11,20 +11,14 @@ int main() {
     int shmid = shmget(key, sizeof(char) * 1024, IPC_CREAT | 0666);
     char *shm = shmat(shmid, NULL, 0);
 
-    char filename[256] = "";
-    char type[20] = "";
-    char name[100] = "";
-    float rating, max_rating = 0.0;
-    char highest_name[100] = "";
+    char filename[256];
+    char trashcan_name[100] = "";
+    char parkinglot_name[100] = "";
+    float rating, trashcan_max_rating = 0.0, parkinglot_max_rating = 0.0;
+
     while (*shm != '\0') {
         strcpy(filename, shm);
         shm += strlen(shm) + 1;
-
-        if (strstr(filename, "trashcan.csv")) {
-            strcpy(type, "Trash Can");
-        } else if (strstr(filename, "parkinglot.csv")) {
-            strcpy(type, "Parking Lot");
-        }
 
         char filepath[512];
         sprintf(filepath, "/home/rafaelega24/SISOP/modul3/1/new-data/%s", filename);
@@ -36,20 +30,28 @@ int main() {
         }
 
         fscanf(file, "%*s,%*s"); // skip header line
-        strcpy(name, ""); // Reset name before reading file
+        char name[100];
         while (fscanf(file, "%[^,],%f", name, &rating) == 2) {
-            if (rating > max_rating) {
-                max_rating = rating;
-                strcpy(highest_name, name); // Copy the name with highest rating
+            if (strstr(filename, "trashcan.csv")) {
+                if (rating > trashcan_max_rating) {
+                    trashcan_max_rating = rating;
+                    strcpy(trashcan_name, name);
+                }
+            } else if (strstr(filename, "parkinglot.csv")) {
+                if (rating > parkinglot_max_rating) {
+                    parkinglot_max_rating = rating;
+                    strcpy(parkinglot_name, name);
+                }
             }
         }
 
         fclose(file);
     }
 
-    printf("Type: %s\nFilename: %s\n\n--------------------------------\n\nName: %s\nRating: %.1f\n", type, filename, highest_name, max_rating);
+    printf("Type: Trash Can\nFilename: %s\n\n--------------------------------\n\nName: %s\nRating: %.1f\n\n", filename, trashcan_name, trashcan_max_rating);
+    printf("Type: Parking Lot\nFilename: %s\n\n--------------------------------\n\nName: %s\nRating: %.1f\n", filename, parkinglot_name, parkinglot_max_rating);
 
     shmdt(shm);
-    //shmctl(shmid, IPC_RMID, NULL);
+    shmctl(shmid, IPC_RMID, NULL);
     return 0;
 }
