@@ -7,7 +7,7 @@
 #include <time.h>
 
 void balikinJadiString(int result, char *intConverted) {
-    char *ones[] = {"nol", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"};
+    char *ones[] = {"", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"};
     char *tens[] = {"", "", "dua puluh", "tiga puluh", "empat puluh", "lima puluh", "enam puluh", "tujuh puluh", "delapan puluh", "sembilan puluh"};
     char *teens[] = {"sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas"};
 
@@ -15,14 +15,15 @@ void balikinJadiString(int result, char *intConverted) {
     int tens_digit = num / 10;
     int ones_digit = num % 10;
 
-    if (num < 10) strcpy(intConverted, ones[num]);
+    if(num == 0) strcpy(intConverted, "nol");
+    else if (num < 10 && num != 0) strcpy(intConverted, ones[num]);
     else if (num >= 10 && num < 20) strcpy(intConverted, teens[ones_digit]);
     else if (num >= 20 && num < 100) sprintf(intConverted, "%s %s", tens[tens_digit], ones[ones_digit]);
     else strcpy(intConverted, "Terlalu besar");
 }
 
 int gantiKeAngka(char *str) {
-    char *ones[] = {"", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"};
+    char *ones[] = {"nol", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"};
     int i;
     for (i = 0; i < 10; i++) {
         if (strcmp(str, ones[i]) == 0)
@@ -49,12 +50,18 @@ void buatLog(char *type, char *pesan) {
 }
 
 int main(int argc, char *argv[]) {
-    int fd1[2];
-    int fd2[2];
+    int pipa1[2];
+    int pipa2[2];
 
-    if (pipe(fd1) == -1 || pipe(fd2) == -1) {
+    if (pipe(pipa1) == -1 || pipe(pipa2) == -1) {
         fprintf(stderr, "Pipe Failed");
         return 1;
+    }
+
+    if (argc < 2 || (strcmp(argv[1], "-kali") != 0 && strcmp(argv[1], "-tambah") != 0 &&
+                     strcmp(argv[1], "-kurang") != 0 && strcmp(argv[1], "-bagi") != 0)) {
+        int *ptr = NULL;
+        *ptr = 0;
     }
 
     char input_str1[100], input_str2[100];
@@ -94,17 +101,17 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        close(fd1[0]);
-        write(fd1[1], &result, sizeof(int));
-        write(fd1[1], operation, strlen(operation) + 1);
-        close(fd1[1]);
+        close(pipa1[0]);
+        write(pipa1[1], &result, sizeof(int));
+        write(pipa1[1], operation, strlen(operation) + 1);
+        close(pipa1[1]);
 
         wait(NULL);
 
-        close(fd2[1]);
+        close(pipa2[1]);
         char result_str[100];
-        read(fd2[0], result_str, sizeof(result_str));
-        close(fd2[0]);
+        read(pipa2[0], result_str, sizeof(result_str));
+        close(pipa2[0]);
 
         buatLog(type, result_str);
     } else {
@@ -113,10 +120,10 @@ int main(int argc, char *argv[]) {
         char result_str[200];
         char intConverted[100];
 
-        close(fd1[1]);
-        read(fd1[0], &result, sizeof(int));
-        read(fd1[0], operation, sizeof(operation));
-        close(fd1[0]);
+        close(pipa1[1]);
+        read(pipa1[0], &result, sizeof(int));
+        read(pipa1[0], operation, sizeof(operation));
+        close(pipa1[0]);
 
         if (result < 0) {
             strcpy(result_str, "ERROR");
@@ -129,9 +136,9 @@ int main(int argc, char *argv[]) {
 
         printf("%s\n", result_str);
 
-        close(fd2[0]);
-        write(fd2[1], result_str, strlen(result_str) + 1);
-        close(fd2[1]);
+        close(pipa2[0]);
+        write(pipa2[1], result_str, strlen(result_str) + 1);
+        close(pipa2[1]);
 
         exit(0);
     }
