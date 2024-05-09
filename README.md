@@ -90,8 +90,10 @@ Log semua file yang masuk ke folder microservices/database ke dalam file db.log 
 ### Screenshot hasil pengerjaan
 
 ### Kendala
+Tidak ada kendala
 
 ### Revisi
+Tidak ada revisi
 
 ## Soal 2
 ### 2a
@@ -219,8 +221,39 @@ void buatLog(char *type, char *pesan) {
 ### Screenshot hasil pengerjaan
 
 ### Kendala
-
+- Ketika program dijalankan dengan perintah `./kalkulator` program masih bisa berjalan, seharusnya terjadi segmentation fault
+- Sedikit kesalahan pada function `balikinJadiString()`, ketika menampilkan puluhan seperti **dua puluh** yang muncul di output adalah **dua puluh nol**
+  
 ### Revisi
+- Untuk masalah pertama saya menambahkan ini di main function
+```c
+    if (argc < 2 || (strcmp(argv[1], "-kali") != 0 && strcmp(argv[1], "-tambah") != 0 &&
+                     strcmp(argv[1], "-kurang") != 0 && strcmp(argv[1], "-bagi") != 0)) {
+        int *ptr = NULL;
+        *ptr = 0;
+    }
+```
+Conditional ini akan memaksa program untuk segmentation fault ketika argc yang diberikan kurang dari 2
+
+- Untuk masalah kedua, saya sedikit memodifikasi function `balikinJadiString()`
+```c
+void balikinJadiString(int result, char *intConverted) {
+    char *ones[] = {"", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"};
+    char *tens[] = {"", "", "dua puluh", "tiga puluh", "empat puluh", "lima puluh", "enam puluh", "tujuh puluh", "delapan puluh", "sembilan puluh"};
+    char *teens[] = {"sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas"};
+
+    int num = result;
+    int tens_digit = num / 10;
+    int ones_digit = num % 10;
+
+    if(num == 0) strcpy(intConverted, "nol");
+    else if (num < 10 && num != 0) strcpy(intConverted, ones[num]);
+    else if (num >= 10 && num < 20) strcpy(intConverted, teens[ones_digit]);
+    else if (num >= 20 && num < 100) sprintf(intConverted, "%s %s", tens[tens_digit], ones[ones_digit]);
+    else strcpy(intConverted, "Terlalu besar");
+}
+```
+Dengan perubahan ini, seharusnya masalah konversi sebelumnya tidak akan terjadi lagi
 
 ## Soal 3
 ### 3a
@@ -398,8 +431,22 @@ Saya menggunakan metode CLI untuk program ini
 ### Screenshot hasil pengerjaan
 
 ### Kendala
+Cara yang digunakan untuk call function `actions.c` oleh `paddock.c` tidak sesuai dengan modul, untuk itu diminta oleh asisten penguji agar mengikuti cara call function yang sesuai dengan modul
 
 ### Revisi
+Untuk masalah sebelumnya saya membuat sebuah file baru `actions.h`
+```h
+#ifndef ACTIONS_H
+#define ACTIONS_H
+
+char *selisih(float jarak);
+char *bensin(float persenan);
+char *ban(int sisa);
+char *gantiBan(char *type);
+
+#endif
+```
+Lalu pada `actions.c` dan `paddock.c` ditambahkan 1 line baru yaitu `#include "actions.h"` untuk menyesuaikan cara call function dengan materi yang diberikan pada modul. Untuk tata cara compile masih sama dengan sebelumnya.
 
 ## Soal 4
 ### 4a
