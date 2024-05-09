@@ -89,6 +89,11 @@ Log semua file yang masuk ke folder microservices/database ke dalam file db.log 
 
 ### Screenshot hasil pengerjaan
 
+![Screenshot 2024-05-10 013322](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/ad156291-9bf9-42b1-9ecf-60af3d2f8af8)
+![Screenshot 2024-05-10 013314](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/896a3cf8-2a0d-40ae-9596-3a34e20a47fc)
+![Screenshot 2024-05-10 013248](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/af9cf60a-3ae9-4ac4-a046-405ac812439c)
+![Screenshot 2024-05-10 013214](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/2a6b9b3f-d7e3-4768-8429-8fc72bebdf70)
+
 ### Kendala
 Tidak ada kendala
 
@@ -219,6 +224,13 @@ void buatLog(char *type, char *pesan) {
 ```
 
 ### Screenshot hasil pengerjaan
+![Screenshot 2024-05-10 014101](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/278a65e0-6ceb-405c-897e-c31d02be8c96)
+![Screenshot 2024-05-10 013806](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/73fc8a89-61d8-4436-b091-093cd378ae17)
+![Screenshot 2024-05-10 013737](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/979e0980-43fe-4ac7-aca9-8fa716078bc2)
+![Screenshot 2024-05-10 013714](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/559830ec-5903-490a-a53c-8856257a1b9a)
+![Screenshot 2024-05-10 013624](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/b334b40e-19d6-4220-b15c-06f8a2efba94)
+![Screenshot 2024-05-10 013551](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/eabf7417-ba52-4a4b-9d2c-f06e6afe8e09)
+![Screenshot 2024-05-10 013527](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/e8f5cca8-996d-4686-91f5-68524be9685a)
 
 ### Kendala
 - Ketika program dijalankan dengan perintah `./kalkulator` program masih bisa berjalan, seharusnya terjadi segmentation fault
@@ -429,6 +441,10 @@ Saya tidak tahu bagaimana cara untuk mengetes jika program ini bisa dijalankan d
 Saya menggunakan metode CLI untuk program ini
 
 ### Screenshot hasil pengerjaan
+
+![Screenshot 2024-05-10 014121](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/183dc774-fd52-4511-98b5-4833c28dd9cd)
+![Screenshot 2024-05-10 014006](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/9acc7aad-d93f-43a1-ab7b-b7043df6cbff)
+![Screenshot 2024-05-10 013846](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/38d16903-a3e1-413a-b384-3de34484c782)
 
 ### Kendala
 Cara yang digunakan untuk call function `actions.c` oleh `paddock.c` tidak sesuai dengan modul, untuk itu diminta oleh asisten penguji agar mengikuti cara call function yang sesuai dengan modul
@@ -718,6 +734,13 @@ Format direktori sudah sesuai
 
 ### Screenshot hasil pengerjaan
 
+![Screenshot 2024-05-10 014737](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/23fe1787-d138-4147-964e-7c807304e78f)
+![Screenshot 2024-05-10 014723](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/15a4ee7b-e842-40e3-aa88-d3d517033d44)
+![Screenshot 2024-05-10 014713](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/ab77346f-31a4-43d3-8edf-207dfc01ff51)
+![Screenshot 2024-05-10 014648](https://github.com/krisadityabcde/Sisop-3-2024-MH-IT21/assets/144150187/e7d27bb9-de91-44fb-9b22-fcb5f7a473bb)
+
 ### Kendala
+Tidak ada kendala
 
 ### Revisi
+Tidak ada revisi
