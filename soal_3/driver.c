@@ -1,3 +1,4 @@
+// driver.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,12 +34,16 @@ int main() {
     printf("Connected to server\n");
 
     while (1) {
-        printf("Enter command (Gap, Fuel, Tire, TireChange, Exit): ");
+        printf("Enter command (Gap, Fuel, Tire, TireChange, exit): ");
         memset(buffer, 0, sizeof(buffer));
-        fgets(buffer, sizeof(buffer), stdin);
+        fgets(buffer, sizeof(buffer), stdin); 
         buffer[strcspn(buffer, "\n")] = '\0';
 
         send(clientSocket, buffer, strlen(buffer), 0);
+
+        if (strcmp(buffer, "exit") == 0) {
+           exit(0);
+        }
 
         memset(buffer, 0, sizeof(buffer));
         int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
