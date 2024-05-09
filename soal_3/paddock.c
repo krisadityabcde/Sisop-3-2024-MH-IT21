@@ -9,13 +9,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
+#include "actions.h"
 
 #define PORT 8080
-
-extern char *selisih(float jarak);
-extern char *bensin(float persenan);
-extern char *ban(int sisa);
-extern char *gantiBan(char *type);
 
 void logMessage(char *source, char *command, char *additionalInfo) {
     FILE *logFile = fopen("/home/rafaelega24/SISOP/modul3/3/server/race.log", "a");
@@ -117,7 +113,11 @@ int main() {
                 break;
             }
 
-            printf("Received data: %s\n", buffer);
+            printf("received: %s\n", buffer);
+            if (strcmp(buffer, "exit") == 0) {
+                printf("Closing connection\n");
+                exit(0); 
+            }
 
             char command[32];
             char value[32];
