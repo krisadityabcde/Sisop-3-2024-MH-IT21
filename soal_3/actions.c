@@ -1,5 +1,7 @@
+// actions.c
 #include <stdio.h>
 #include <string.h>
+#include "actions.h"
 
 char *selisih(float jarak) {
     if (jarak < 3.5) {
